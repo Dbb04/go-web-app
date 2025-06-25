@@ -17,8 +17,8 @@ RUN go mod download
 # Copy the source code to the working directory
 COPY . .
 
-# Build the application
-RUN go build -o main .
+# Build the application for Linux (this is the key fix!)
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main .
 
 #######################################################
 # Reduce the image size using multi-stage builds
